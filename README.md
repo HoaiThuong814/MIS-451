@@ -1,157 +1,192 @@
-MIS451-Classification-Project
-🛒 Predicting Online Shoppers' Purchasing Intention
-Performed By
-Tran Ngoc Trung Hieu • Nguyen Ngoc Minh Thu • Nguyen Thi Hoai Thuong
+# 🛒 MIS451 - Classification Project
 
-📖 Overview
+## Predicting Online Shoppers' Purchasing Intention
+
+### 👥 Performed By
+
+* Tran Ngoc Trung Hieu
+* Nguyen Ngoc Minh Thu
+* Nguyen Thi Hoai Thuong
+
+---
+
+## 📖 Overview
+
 This project develops and evaluates machine learning classification models to predict whether an online shopping session will result in a purchase.
 
-Using behavioral data collected from an e-commerce website, the study analyzes customer browsing patterns and compares multiple machine learning algorithms to identify the most effective model for predicting purchasing intention.
+Using behavioral data from an e-commerce website, the study analyzes customer browsing patterns and compares multiple algorithms to identify the most effective model for predicting purchasing intention.
 
-The objective is to help online retailers identify high-intent visitors and support data-driven marketing decisions that improve conversion rates.
+The goal is to support data-driven marketing decisions and help businesses improve conversion rates.
 
-🎯 Research Question
-Which machine learning classification model best predicts whether an online shopping session will result in a purchase?
+---
 
-📊 Dataset
-Dataset: Online Shoppers Purchasing Intention Dataset
+## 🎯 Research Question
 
-Source: UCI Machine Learning Repository
+**Which machine learning model best predicts whether an online session leads to a purchase?**
 
-Dataset Characteristics
-12,330 online shopping sessions
-18 features
-Binary target variable (Revenue)
-Real-world e-commerce clickstream data
-Data collected over 10 months (February–December, excluding January and April)
-Target Variable
-Variable	Description
-Revenue	Whether the session resulted in a purchase
-Dataset Link:
+---
 
+## 📊 Dataset
+
+* **Dataset:** Online Shoppers Purchasing Intention
+* **Source:** UCI Machine Learning Repository
+* **Sessions:** 12,330
+* **Features:** 18
+* **Target:** Revenue (Purchase / Non-purchase)
+
+🔗 Dataset Link:
 https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset
 
-🔍 Exploratory Data Analysis
-Class Imbalance
-Purchase sessions: 15.6%
-Non-purchase sessions: 84.4%
-The dataset is highly imbalanced, making accuracy a misleading metric. Therefore, F1-Macro was selected as the primary evaluation metric because it gives equal importance to both purchase and non-purchase classes.
+---
 
-Strongest Predictor
-PageValues showed the strongest relationship with purchase behavior. Visitors who reached high-value pages were significantly more likely to complete a purchase.
+## 🔍 Exploratory Data Analysis
 
-Customer Behavior Insights
-Higher purchase intention was associated with:
+### Class Imbalance
 
-More product page visits
-Longer product browsing duration
-Higher PageValues
-Lower purchase intention was associated with:
+* Purchase: 15.6%
+* Non-purchase: 84.4%
+  → F1-Macro used instead of accuracy
 
-Higher BounceRates
-Higher ExitRates
-Seasonal Trends
-November recorded both the highest traffic volume and the highest conversion rate, suggesting strong seasonal effects from promotional events such as Black Friday and Cyber Monday.
+### Key Predictor
 
-⚙️ Data Preprocessing
-Data Cleaning
-Removed 125 duplicate records
-No missing values detected
-Train-Test Split
-Training Set: 80%
-Test Set: 20%
-Stratified sampling used to preserve class distribution
-Feature Encoding
-VisitorType
+* **PageValues** = strongest indicator of purchase
 
-One-Hot Encoding
-Month
+### Customer Behavior
 
-Ordinal Encoding
-Feature Scaling
-StandardScaler applied to:
+High purchase intention:
 
-Logistic Regression
-K-Nearest Neighbors (KNN)
-MLP Neural Network
-Random Forest used unscaled features.
+* More product page visits
+* Longer browsing duration
+* Higher PageValues
 
-Outlier Handling
-Outliers were retained because they represent genuine high-engagement customer sessions and contain valuable predictive information.
+Low purchase intention:
 
-🤖 Machine Learning Models
-The following classification models were developed and compared:
+* High BounceRates
+* High ExitRates
 
-Logistic Regression
-Baseline model
-Class-weight balancing applied
-K-Nearest Neighbors (KNN)
-Distance-based classification
-k = 99
-Random Forest
-200 decision trees
-Balanced class weighting
-Feature importance analysis
-MLP Neural Network
-Hidden layers: (32,16)
-ReLU activation
-Adam optimizer
-Early stopping enabled
-📈 Model Performance
-Cross-Validation Results (10-Fold)
-Model	F1-Macro
-Logistic Regression	0.7765
-KNN	0.6045
-MLP Neural Network	0.7669
-Random Forest	0.8048
-Best Model: Random Forest
-Random Forest achieved the highest F1-Macro score and the most stable performance across validation folds, making it the selected model for final evaluation.
+### Seasonal Trend
 
-🏆 Final Test Results
-Metric	Score
-Accuracy	90.00%
-Precision	68.25%
-Recall	67.54%
-F1-Score	67.89%
-The model successfully identified a large proportion of purchase sessions while maintaining strong overall classification performance on unseen data.
+* November = highest traffic & conversion (Black Friday effect)
 
-💡 Key Business Insights
-The analysis suggests that purchase intention is strongly related to customer engagement.
+---
 
-High Purchase Intention Indicators
-High PageValues
-More ProductRelated page visits
-Longer ProductRelated browsing duration
-Low Purchase Intention Indicators
-High BounceRates
-High ExitRates
-These behavioral signals can be used to support real-time customer targeting and personalization strategies.
+## ⚙️ Data Preprocessing
 
-🚀 Business Recommendations
-1. Prioritize High-Intent Visitors
-Use prediction scores and PageValues to identify visitors most likely to purchase and provide timely interventions.
+### Data Cleaning
 
-2. Improve Product Pages
-Enhance:
+* Removed 125 duplicates
+* No missing values
 
-Product descriptions
-Product images
-Customer reviews
-Related-product recommendations
-3. Reduce Bounce and Exit Rates
-Optimize:
+### Train-Test Split
 
-Landing pages
-Website speed
-Navigation flow
-Call-to-action placement
-🛠️ Technologies Used
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Scikit-learn
-Jupyter Notebook
-📚 References
-Sakar, C., & Kastro, Y. (2018). Online Shoppers Purchasing Intention Dataset. UCI Machine Learning Repository.
+* Train: 80%
+* Test: 20%
+* Stratified sampling
+
+### Feature Engineering
+
+* VisitorType → One-Hot Encoding
+* Month → Ordinal Encoding
+
+### Scaling
+
+Applied to:
+
+* Logistic Regression
+* KNN
+* MLP
+
+(Random Forest used raw features)
+
+### Outliers
+
+* Retained (important behavioral signals)
+
+---
+
+## 🤖 Models
+
+* **Logistic Regression** (baseline)
+* **KNN** (k = 99)
+* **Random Forest** (200 trees)
+* **MLP Neural Network** (32,16 hidden layers)
+
+---
+
+## 📈 Model Performance (10-Fold CV)
+
+| Model               | F1-Macro   |
+| ------------------- | ---------- |
+| Logistic Regression | 0.7765     |
+| KNN                 | 0.6045     |
+| MLP Neural Network  | 0.7669     |
+| Random Forest       | **0.8048** |
+
+🏆 **Best Model: Random Forest**
+
+---
+
+## 🏆 Final Test Results
+
+| Metric    | Score  |
+| --------- | ------ |
+| Accuracy  | 90.00% |
+| Precision | 68.25% |
+| Recall    | 67.54% |
+| F1-Score  | 67.89% |
+
+---
+
+## 💡 Business Insights
+
+Purchase behavior is strongly driven by customer engagement.
+
+**High Purchase Indicators:**
+
+* High PageValues
+* More product page visits
+* Longer browsing time
+
+**Low Purchase Indicators:**
+
+* High BounceRates
+* High ExitRates
+
+---
+
+## 🚀 Recommendations
+
+### 1. Target High-Intent Users
+
+Use prediction scores to identify likely buyers
+
+### 2. Improve Product Pages
+
+* Better descriptions
+* Images
+* Reviews
+* Recommendations
+
+### 3. Reduce Bounce & Exit
+
+* Optimize landing pages
+* Improve website speed
+* Better navigation & CTA
+
+---
+
+## 🛠️ Technologies
+
+* Python
+* Pandas, NumPy
+* Matplotlib, Seaborn
+* Scikit-learn
+* Jupyter Notebook
+
+---
+
+## 📚 Reference
+
+Sakar, C., & Kastro, Y. (2018).
+Online Shoppers Purchasing Intention Dataset.
+UCI Machine Learning Repository.
